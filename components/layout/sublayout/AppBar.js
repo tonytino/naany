@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import UserSession from './UserSession';
+import { useLayoutContext } from './../LayoutContext';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,6 +22,7 @@ const useStyles = makeStyles(theme => ({
 
 function AppBar() {
   const classes = useStyles();
+  const { toggleNavMenu } = useLayoutContext();
 
   return (
     <div className={classes.root}>
@@ -31,6 +33,7 @@ function AppBar() {
             className={classes.menuButton}
             color="inherit"
             aria-label="Open Navigation"
+            onClick={toggleNavMenu}
           >
             <MenuIcon />
           </IconButton>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
-import { AppBar } from './sublayout';
+import { AppBar, Nav } from './sublayout';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -11,10 +11,10 @@ const useStyles = makeStyles(theme => ({
 
 function Layout({ children }) {
   const classes = useStyles();
-
   return (
     <div className={classes.root}>
       <AppBar />
+      <Nav />
       {children}
     </div>
   );
