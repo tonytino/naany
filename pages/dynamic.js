@@ -1,16 +1,15 @@
 import dynamic from 'next/dynamic';
 import fetch from 'isomorphic-unfetch';
-// const NextStars = dynamic(() => import('./../components/NextStars'), {
-//   loading: () => <p>LOADING APP...</p>,
-// });
-// <NextStars stargazers_count={stargazers_count} useFetch />
+const NextStars = dynamic(() => import('./../components/NextStars'), {
+  loading: () => <p>LOADING APP...</p>,
+});
 
 function Dynamic({ stargazers_count }) {
   const [showApp, setShowApp] = React.useState(false);
   return (
     <main>
       {showApp ? (
-        <span>testing</span>
+        <NextStars stargazers_count={stargazers_count} useFetch />
       ) : (
         <button onClick={setShowApp.bind(true)}>Show App</button>
       )}
