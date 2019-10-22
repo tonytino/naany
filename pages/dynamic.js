@@ -1,14 +1,15 @@
 import dynamic from 'next/dynamic';
-const NextStars = dynamic(() => import('./../components/NextStars'), {
-  loading: () => <p>LOADING APP...</p>,
-});
+// const NextStars = dynamic(() => import('./../components/NextStars'), {
+//   loading: () => <p>LOADING APP...</p>,
+// });
+// <NextStars stargazers_count={stargazers_count} useFetch />
 
 function Dynamic({ stargazers_count }) {
   const [showApp, setShowApp] = React.useState(false);
   return (
     <main>
       {showApp ? (
-        <NextStars stargazers_count={stargazers_count} useFetch />
+        <span>testing</span>
       ) : (
         <button onClick={setShowApp.bind(true)}>Show App</button>
       )}
