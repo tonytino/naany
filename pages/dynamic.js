@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+import fetch from 'isomorphic-unfetch';
 // const NextStars = dynamic(() => import('./../components/NextStars'), {
 //   loading: () => <p>LOADING APP...</p>,
 // });
