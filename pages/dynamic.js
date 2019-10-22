@@ -1,6 +1,4 @@
 import dynamic from 'next/dynamic';
-import Nav from './../components/Layout/sublayout/Nav';
-
 const NextStars = dynamic(() => import('./../components/NextStars'), {
   loading: () => <p>LOADING APP...</p>,
 });
@@ -14,7 +12,6 @@ function Dynamic({ stargazers_count }) {
       ) : (
         <button onClick={setShowApp.bind(true)}>Show App</button>
       )}
-      <Nav />
     </main>
   );
 }
