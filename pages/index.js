@@ -33,12 +33,12 @@ function Home() {
         className={classes.welcomeTitle}
         gutterBottom
       >
-        Welcome to Naany! 🥖
+        Welcome to Naany!
       </Typography>
 
       <Typography variant="body1" component="p" className={classes.paragraphs}>
-        Naany is an anonymous message board where you can create a post, and
-        share a link you receive with anyone.
+        An anonymous message board where you can create a post, and share a link
+        you receive with anyone.
       </Typography>
 
       <Typography variant="h4" component="p" gutterBottom>
@@ -51,7 +51,7 @@ function Home() {
       </Typography>
 
       <Typography variant="h4" component="p" gutterBottom>
-        👩‍🚀🦹‍♀️🧙‍♂️👨‍🍳👩‍🎨 👨‍💻👩‍🌾
+        👩‍🚀🦹‍♀️🧙‍♂️👩‍🎨👨‍💻👩‍🌾
       </Typography>
 
       <Button

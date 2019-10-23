@@ -39,7 +39,7 @@ function AppBar() {
           </IconButton>
 
           <Typography variant="h6" className={classes.title}>
-            Example App
+            Naany
           </Typography>
 
           <UserSession />
