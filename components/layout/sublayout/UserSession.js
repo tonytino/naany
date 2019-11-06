@@ -1,14 +1,22 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
+import Router from 'next/router';
+import Link from 'next/link';
+import { AccountCircle } from '@material-ui/icons';
+import { Button, makeStyles, Menu, MenuItem } from '@material-ui/core';
+import { useUserSessionContext } from './../../../contextes';
 
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
     justifyContent: 'flex-end',
+  },
+  loginButton: {
+    '& a': {
+      textDecoration: 'none',
+      '&:visited': {
+        color: 'inherit',
+      },
+    },
   },
 }));
 
@@ -16,43 +24,54 @@ function UserSession() {
   const classes = useStyles();
   const parentEl = React.useRef();
 
-  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  const { userSession, setUserSession } = useUserSessionContext();
+
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const isMenuOpen = Boolean(anchorEl);
+  const isMenuOpen = React.useMemo(() => Boolean(anchorEl), [anchorEl]);
 
-  const toggleMenu = React.useCallback(
-    _ => {
-      anchorEl ? setAnchorEl(null) : setAnchorEl(parentEl.current);
-    },
-    [anchorEl, setAnchorEl, parentEl.current],
-  );
+  const isAuthenticated = React.useMemo(() => Boolean(userSession.xAuthToken), [
+    userSession.xAuthToken,
+  ]);
 
-  const toggleSession = React.useCallback(
-    _ => {
-      setIsAuthenticated(prevState => !prevState);
-      toggleMenu();
-    },
-    [setIsAuthenticated, toggleMenu],
-  );
+  const userFirstName = React.useMemo(() => {
+    try {
+      return userSession.displayName.split(' ')[0];
+    } catch (error) {
+      return 'friend';
+    }
+  }, [userSession.displayName]);
+
+  const toggleMenu = React.useCallback(() => {
+    anchorEl ? setAnchorEl(null) : setAnchorEl(parentEl.current);
+  }, [anchorEl, setAnchorEl, parentEl.current]);
+
+  const signOut = React.useCallback(() => {
+    setUserSession({ userSession: {} });
+    toggleMenu();
+    Router.push('/login');
+  }, [setUserSession, toggleMenu]);
 
   return (
     <div ref={parentEl} className={classes.root}>
       {isAuthenticated ? (
         <UserSessionMenu
           anchorEl={anchorEl}
+          authToken={userSession.xAuthToken}
           isMenuOpen={isMenuOpen}
+          signOut={signOut}
           toggleMenu={toggleMenu}
-          toggleSession={toggleSession}
+          userName={userFirstName}
         />
       ) : (
-        <Button
-          aria-label="Login Button"
-          className={classes.menuButton}
-          color="inherit"
-          onClick={setIsAuthenticated}
-        >
-          Login
-        </Button>
+        <Link href="/login">
+          <Button
+            aria-label="Login Button"
+            className={classes.loginButton}
+            color="inherit"
+          >
+            Login
+          </Button>
+        </Link>
       )}
     </div>
   );
@@ -66,9 +85,11 @@ export default UserSession;
  */
 function UserSessionMenu({
   anchorEl = null,
+  authToken = 'fake-token',
   isMenuOpen = false,
+  signOut = () => {},
   toggleMenu = () => {},
-  toggleSession = () => {},
+  userName = 'Unknown',
 }) {
   return (
     <React.Fragment>
@@ -80,7 +101,7 @@ function UserSessionMenu({
         color="inherit"
       >
         <AccountCircle />
-        <span style={{ paddingLeft: '8px' }}>Hi, Anthony 👋</span>
+        <span style={{ paddingLeft: '8px' }}>Hi, {userName} 👋</span>
       </Button>
 
       <Menu
@@ -98,10 +119,8 @@ function UserSessionMenu({
         open={isMenuOpen}
         onClose={toggleMenu}
       >
-        <MenuItem onClick={() => alert('Haha, just kidding')}>
-          Dark Mode
-        </MenuItem>
-        <MenuItem onClick={toggleSession}>Sign Out</MenuItem>
+        <MenuItem onClick={() => alert(authToken)}>Reveal Token</MenuItem>
+        <MenuItem onClick={signOut}>Sign Out</MenuItem>
       </Menu>
     </React.Fragment>
   );
