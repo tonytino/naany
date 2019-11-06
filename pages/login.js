@@ -1,6 +1,5 @@
 import { makeStyles } from '@material-ui/styles';
-import { Typography } from '@material-ui/core';
-import { useUserSessionContext } from './../contextes';
+import { LoginForm } from './../components';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -9,24 +8,22 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(4, 6),
     textAlign: 'center',
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     flexDirection: 'column',
     margin: 'auto',
   },
-  loginButton: {
-    margin: 'auto',
+  welcomeTitle: {},
+  paragraphs: {
+    marginBottom: theme.spacing(8),
   },
 }));
 
 function Home() {
   const classes = useStyles();
-  const { userSession } = useUserSessionContext();
-  const greeting = userSession.xAuthToken
-    ? `Hi, ${userSession.displayName}! 👋`
-    : `Hi, stranger! 👽`;
+
   return (
     <main className={classes.container}>
-      <Typography variant="h4">{greeting}</Typography>
+      <LoginForm />
     </main>
   );
 }

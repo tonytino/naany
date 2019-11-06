@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import UserSession from './UserSession';
-import { useLayoutContext } from './../LayoutContext';
+import { useLayoutContext } from '../../../contextes';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -22,8 +22,11 @@ const useStyles = makeStyles(theme => ({
 
 function AppBar() {
   const classes = useStyles();
-  const { toggleNavMenu } = useLayoutContext();
-
+  const { setLayout } = useLayoutContext();
+  const openNavigation = React.useCallback(
+    () => setLayout({ layout: { navIsOpen: true } }),
+    [setLayout],
+  );
   return (
     <div className={classes.root}>
       <MuiAppBar position="static">
@@ -33,13 +36,13 @@ function AppBar() {
             className={classes.menuButton}
             color="inherit"
             aria-label="Open Navigation"
-            onClick={toggleNavMenu}
+            onClick={openNavigation}
           >
             <MenuIcon />
           </IconButton>
 
           <Typography variant="h6" className={classes.title}>
-            Example App
+            Mission Control 🚀
           </Typography>
 
           <UserSession />

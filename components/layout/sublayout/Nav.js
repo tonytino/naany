@@ -6,10 +6,14 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import Home from '@material-ui/icons/Home';
-import DeviceHub from '@material-ui/icons/DeviceHub';
-import DynamicFeed from '@material-ui/icons/DynamicFeed';
-import { useLayoutContext } from './../LayoutContext';
+import {
+  Home,
+  DeviceHub,
+  DynamicFeed,
+  Lock,
+  LockOpen,
+} from '@material-ui/icons';
+import { useLayoutContext, useUserSessionContext } from '../../../contextes';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -18,21 +22,36 @@ const useStyles = makeStyles(theme => ({
 
 function Nav() {
   const classes = useStyles();
-  const { navMenuIsOpen, toggleNavMenu } = useLayoutContext();
+  const { layout, setLayout } = useLayoutContext();
+  const { userSession } = useUserSessionContext();
+
+  const isAuthenticated = React.useMemo(_ => Boolean(userSession.xAuthToken), [
+    userSession,
+  ]);
 
   const toggleDrawer = React.useCallback(
     event => {
       const ignorableKeyDown = event.key === 'Tab' || event.key === 'Shift';
       const shouldNotToggle = event.type === 'keydown' && ignorableKeyDown;
-      if (!shouldNotToggle) toggleNavMenu();
+      if (!shouldNotToggle) {
+        setLayout(({ layout: { navIsOpen } }) => ({
+          layout: {
+            navIsOpen: false,
+          },
+        }));
+      }
     },
-    [toggleNavMenu],
+    [setLayout],
   );
 
   return (
     <div className={classes.root}>
-      <Drawer open={navMenuIsOpen} onClose={toggleDrawer}>
-        <NavMenu className={classes.menu} toggleDrawer={toggleDrawer} />
+      <Drawer open={layout.navIsOpen} onClose={toggleDrawer}>
+        <NavMenu
+          className={classes.menu}
+          isAuthenticated={isAuthenticated}
+          toggleDrawer={toggleDrawer}
+        />
       </Drawer>
     </div>
   );
@@ -44,7 +63,7 @@ export default Nav;
  * @private Component
  * Renders the nav menu options
  */
-function NavMenu({ className, toggleDrawer }) {
+function NavMenu({ className, toggleDrawer, isAuthenticated }) {
   return (
     <div
       className={className}
@@ -59,6 +78,15 @@ function NavMenu({ className, toggleDrawer }) {
               <Home />
             </ListItemIcon>
             <ListItemText primary="Home" />
+          </ListItem>
+        </Link>
+
+        <Link href="/protected">
+          <ListItem button>
+            <ListItemIcon>
+              {isAuthenticated ? <LockOpen /> : <Lock />}
+            </ListItemIcon>
+            <ListItemText primary="Protected" />
           </ListItem>
         </Link>
 

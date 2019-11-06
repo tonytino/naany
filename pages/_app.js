@@ -3,36 +3,66 @@ import App from 'next/app';
 import { ThemeProvider } from '@material-ui/styles';
 import { CssBaseline } from '@material-ui/core';
 import CUSTOM_THEME from './../materialTheme';
-import { Layout, LayoutContext } from './../components';
+import { Layout } from './../components';
+import { LayoutContext, UserSessionContext } from './../contextes';
 
 class MyApp extends App {
   constructor(props) {
     super(props);
     this.state = {
-      navMenuIsOpen: false,
+      layout: {
+        navIsOpen: false,
+      },
+      userSession: {},
     };
   }
 
-  toggleNavMenu = () => {
-    this.setState(prevState => ({
-      navMenuIsOpen: !prevState.navMenuIsOpen,
-    }));
+  /**
+   *            LAYOUT MGMT
+   */
+
+  setLayout = setLayoutCallback => {
+    this.setState(setLayoutCallback);
   };
+
+  get layoutContext() {
+    const { setLayout } = this;
+    const { layout } = this.state;
+    return {
+      layout,
+      setLayout,
+    };
+  }
+
+  /**
+   *            USER SESSION MGMT
+   */
+
+  setUserSession = setUserSessionCallback => {
+    this.setState(setUserSessionCallback);
+  };
+
+  get userSessionContext() {
+    const { setUserSession } = this;
+    const { userSession } = this.state;
+    return {
+      userSession,
+      setUserSession,
+    };
+  }
 
   render() {
     const { Component, pageProps } = this.props;
-    const { navMenuIsOpen } = this.state;
-    const layoutContext = {
-      navMenuIsOpen,
-      toggleNavMenu: this.toggleNavMenu,
-    };
+
     return (
       <ThemeProvider theme={CUSTOM_THEME}>
         <CssBaseline />
-        <LayoutContext.Provider value={layoutContext}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+        <LayoutContext.Provider value={this.layoutContext}>
+          <UserSessionContext.Provider value={this.userSessionContext}>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </UserSessionContext.Provider>
         </LayoutContext.Provider>
       </ThemeProvider>
     );
