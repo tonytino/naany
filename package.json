@@ -17,8 +17,9 @@
     "dev": "next",
     "build": "next build",
     "export": "next export",
-    "deploy-preview": "npm run build && npm run export && netlify deploy",
-    "deploy-prod": "netlify deploy --prod",
+    "prepare_for_deploy": "npm run build && npm run export",
+    "deploy_preview": "npm run prepare_for_deploy && netlify deploy --dir=./out",
+    "deploy_prod": "netlify deploy --prod --dir=./out",
     "start": "next start"
   },
   "repository": {

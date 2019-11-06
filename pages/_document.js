@@ -22,6 +22,14 @@ class MyDocument extends Document {
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
           />
+          <link
+            rel="icon"
+            href="https://dtgxwmigmg3gc.cloudfront.net/imagery/assets/derivations/icon/256/256/true/eyJpZCI6ImI2ZTRjNjZlODQyZjc0ODgxM2Y1NzBmMWY0NTFlZTM4Iiwic3RvcmFnZSI6InB1YmxpY19zdG9yZSJ9?signature=0f86218f1d47546de49fcf09f67354b743d764fa3e1726fb7dcdb462166f2bdf"
+          />
+          <meta
+            name="description"
+            content="An anonymous, undiscoverable message board"
+          />
         </Head>
         <body>
           <Main />
