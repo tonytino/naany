@@ -58,7 +58,7 @@ class MyApp extends App {
     return (
       <ThemeProvider theme={CUSTOM_THEME}>
         <Head>
-          <title>Naany</title>
+          <title>[POC] Mission Control</title>
         </Head>
         <CssBaseline />
         <LayoutContext.Provider value={this.layoutContext}>

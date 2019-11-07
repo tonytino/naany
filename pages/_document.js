@@ -24,11 +24,12 @@ class MyDocument extends Document {
           />
           <link
             rel="icon"
-            href="https://dtgxwmigmg3gc.cloudfront.net/imagery/assets/derivations/icon/256/256/true/eyJpZCI6ImI2ZTRjNjZlODQyZjc0ODgxM2Y1NzBmMWY0NTFlZTM4Iiwic3RvcmFnZSI6InB1YmxpY19zdG9yZSJ9?signature=0f86218f1d47546de49fcf09f67354b743d764fa3e1726fb7dcdb462166f2bdf"
+            href="https://res.cloudinary.com/eaze/image/upload/v1505498730/favicon_udjvhw.ico"
           />
+          <meta name="title" content="[POC] Mission Control"></meta>
           <meta
             name="description"
-            content="An anonymous, undiscoverable message board"
+            content="An POC app for next-gen Mission Control"
           />
         </Head>
         <body>
