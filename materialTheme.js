@@ -1,8 +1,8 @@
 // https://material-ui.com/customization/default-theme/#material-ui-core-styles-vs-material-ui-styles
-import { createMuiTheme } from '@material-ui/core/styles'
+import { createMuiTheme } from '@material-ui/core/styles';
 
 // Interactive DefaultTheme Object: https://material-ui.com/customization/default-theme/
-export const GOOGLE_THEME = createMuiTheme()
+export const GOOGLE_THEME = createMuiTheme();
 
 export const COLORS = {
   white: '#FFF',
@@ -13,7 +13,7 @@ export const COLORS = {
   darkBlue: '#126CAB',
   orange: '#F05B4B',
   gray: '#5C515A',
-}
+};
 
 export const PALETTE = {
   primary: {
@@ -24,7 +24,7 @@ export const PALETTE = {
     main: COLORS.yellow,
     contrastText: COLORS.gray,
   },
-}
+};
 
 const CUSTOM_THEME = createMuiTheme({
   // Custom key to define colors (or anything you want available in the theme object)
@@ -63,6 +63,6 @@ const CUSTOM_THEME = createMuiTheme({
       },
     },
   },
-})
+});
 
-export default CUSTOM_THEME
+export default CUSTOM_THEME;

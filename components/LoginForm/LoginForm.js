@@ -65,7 +65,7 @@ function LoginForm() {
         throw json.message || 'API failed to provide a explaination.';
       } else {
         setUserSession({ userSession: json });
-        Router.push('/');
+        Router.push('/assignDriverToDepot');
       }
     } catch (error) {
       console.error('Failed to authenticate:', error);
