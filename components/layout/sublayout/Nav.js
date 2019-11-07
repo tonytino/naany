@@ -6,13 +6,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import {
-  Home,
-  DeviceHub,
-  DynamicFeed,
-  Lock,
-  LockOpen,
-} from '@material-ui/icons';
+import { Home, Lock, LockOpen } from '@material-ui/icons';
 import { useLayoutContext, useUserSessionContext } from '../../../contextes';
 
 const useStyles = makeStyles(theme => ({
@@ -87,24 +81,6 @@ function NavMenu({ className, toggleDrawer, isAuthenticated }) {
               {isAuthenticated ? <LockOpen /> : <Lock />}
             </ListItemIcon>
             <ListItemText primary="Protected" />
-          </ListItem>
-        </Link>
-
-        <Link href="/ssr">
-          <ListItem button>
-            <ListItemIcon>
-              <DeviceHub />
-            </ListItemIcon>
-            <ListItemText primary="Server-Side" />
-          </ListItem>
-        </Link>
-
-        <Link href="/dynamic">
-          <ListItem button>
-            <ListItemIcon>
-              <DynamicFeed />
-            </ListItemIcon>
-            <ListItemText primary="Dynamic" />
           </ListItem>
         </Link>
       </List>
